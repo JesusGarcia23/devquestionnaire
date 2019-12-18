@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Form from './Components/Form';
 import axios from 'axios';
@@ -8,10 +7,6 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      fullName:'',
-      email:'',
-      projectRepo:'',
-      projectUrl: '',
       bestpracticeOOP: 0,
       modularDevelopment: 0,
       fulWorkUnderstanding: 0,
@@ -29,6 +24,7 @@ class App extends React.Component {
       intAptitude: 0,
       maxPoint: 50,
       totalPoint: 0,
+      limitMessage: false
     }
   }
 
@@ -79,32 +75,31 @@ class App extends React.Component {
     switch(type){
 
       case 'number':
-        if(this.state.totalPoint >= 50 && theValue > theInfo[name]){    
+        console.log(this.state.totalPoint)
+        if(this.state.totalPoint > 49 && theValue > theInfo[name]){
+          console.log("THIS IS HAPPENING")    
             theValue -= 1
+            theInfo[name] = theValue 
             this.setState({
               limitMessage: true
             })
         }else{
+          theInfo[name] = theValue 
           this.setState({
             limitMessage: false
           })
         }
   
-        theInfo[name] = theValue 
-  
         for(let x in this.state){
           if(typeof this.state[x] === 'number' && x !== 'maxPoint' && x !== 'totalPoint'){
             theTotal += theInfo[x]
           }
-         
         }
   
-          this.setState({
-            [name]: theValue,
-            totalPoint: theTotal,
-            }, () => {
-              console.log(this.state.totalPoint)
-            })
+        this.setState({
+          [name]: theValue,
+          totalPoint: theTotal,
+          })
         break;
   
       default:
@@ -127,3 +122,31 @@ class App extends React.Component {
 }
 
 export default App;
+
+// OLD STATE
+// constructor(props){
+//   super(props)
+//   this.state = {
+//     fullName:'',
+//     email:'',
+//     projectRepo:'',
+//     projectUrl: '',
+//     bestpracticeOOP: 0,
+//     modularDevelopment: 0,
+//     fulWorkUnderstanding: 0,
+//     testing: 0,
+//     databaseKnowledge: 0,
+//     debugging: 0,
+//     probSolvingSkills: 0,
+//     javascript: 0,
+//     html: 0,
+//     css: 0,
+//     workingTeam: 0,
+//     selfMotivation: 0,
+//     communicationSkills: 0,
+//     ownEnergyLvl: 0,
+//     intAptitude: 0,
+//     maxPoint: 50,
+//     totalPoint: 0,
+//   }
+// }
