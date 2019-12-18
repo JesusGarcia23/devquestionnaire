@@ -14,7 +14,7 @@ const Form = (props) => {
         </div>
 
         <div className='skills-form'>
-        {limitMessage ? <div>HEY YOU REACHED YOUR LIMIT </div> : null}
+        {limitMessage ? <div>YOU HAVE REACHED THE LIMIT! </div> : null}
         <div className='form-skill'>
         <label>USING BEST PRACTICES FOR OOP:</label>
         <input type='number' name='bestpracticeOOP' min={0} value={bestpracticeOOP} onChange={e => props.updateInput(e)}></input>
