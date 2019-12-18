@@ -58,6 +58,7 @@ class App extends React.Component {
           ownEnergyLvl: 0,
           intAptitude: 0,
           totalPoint: 0,
+          limitMessage: false
         }, () => {
           alert("THANK YOU! YOUR APPLICATION WAS SUCCESSFULLY SUBMITED!")
           window.scrollTo(0, 0);
@@ -73,42 +74,50 @@ class App extends React.Component {
     const {name, value, type} = e.target;
     let theValue = Number(value)
 
-    if(type !== 'number'){
-      this.setState({
-        [name]: value
-      })
-    }else{
-      
-      const theInfo = this.state
+    switch(type){
+      case 'number':
 
-      if(this.state.totalPoint === 50){
-        if(theValue > theInfo[name]){
-          theValue -= 1
-        }
-      }
+        const theInfo = this.state
 
-      if(this.state.totalPoint < this.state.maxPoint){
-        theInfo[name] = theValue 
-      }
-    
-      let theTotal = 0
-
-      for(let x in this.state){
-        if(typeof this.state[x] === 'number' && x !== 'maxPoint' && x !== 'totalPoint'){
-          theTotal += theInfo[x]
-        }
-       
-      }
-
-      if(theTotal < this.state.maxPoint){
-        this.setState({
-          [name]: theValue,
-          totalPoint: theTotal 
+        if(this.state.totalPoint === 50 && theValue > theInfo[name]){    
+            theValue -= 1
+            this.setState({
+              limitMessage: true
+            })
+        }else{
+          this.setState({
+            limitMessage: false
           })
-      }
-
-
+        }
+  
+        if(this.state.totalPoint < this.state.maxPoint){
+          theInfo[name] = theValue 
+        }
+      
+        let theTotal = 0
+  
+        for(let x in this.state){
+          if(typeof this.state[x] === 'number' && x !== 'maxPoint' && x !== 'totalPoint'){
+            theTotal += theInfo[x]
+          }
+         
+        }
+  
+        if(theTotal < this.state.maxPoint){
+          this.setState({
+            [name]: theValue,
+            totalPoint: theTotal,
+            })
+        }
+        break;
+  
+      default:
+        this.setState({
+          [name]: value
+        })
+        break;
     }
+     
 
   }
 
