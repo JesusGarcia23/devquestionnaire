@@ -27,7 +27,7 @@ class App extends React.Component {
       communicationSkills: 0,
       ownEnergyLvl: 0,
       intAptitude: 0,
-      maxPoint: 51,
+      maxPoint: 50,
       totalPoint: 0,
     }
   }
@@ -73,13 +73,13 @@ class App extends React.Component {
     e.preventDefault();
     const {name, value, type} = e.target;
     let theValue = Number(value)
+    const theInfo = this.state
+    let theTotal = 0
 
     switch(type){
+
       case 'number':
-
-        const theInfo = this.state
-
-        if(this.state.totalPoint === 50 && theValue > theInfo[name]){    
+        if(this.state.totalPoint >= 50 && theValue > theInfo[name]){    
             theValue -= 1
             this.setState({
               limitMessage: true
@@ -90,11 +90,7 @@ class App extends React.Component {
           })
         }
   
-        if(this.state.totalPoint < this.state.maxPoint){
-          theInfo[name] = theValue 
-        }
-      
-        let theTotal = 0
+        theInfo[name] = theValue 
   
         for(let x in this.state){
           if(typeof this.state[x] === 'number' && x !== 'maxPoint' && x !== 'totalPoint'){
@@ -103,12 +99,12 @@ class App extends React.Component {
          
         }
   
-        if(theTotal < this.state.maxPoint){
           this.setState({
             [name]: theValue,
             totalPoint: theTotal,
+            }, () => {
+              console.log(this.state.totalPoint)
             })
-        }
         break;
   
       default:
