@@ -8,15 +8,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/submitForm', (req, res, next) => {
-  const {fullName, email, projectRepo, projectUrl, bestpracticeOOP, modularDevelopment,
-fulWorkUnderstanding, testing, databaseKnowledge, debugging, probSolvingSkills, javascript,
-html, css, workingTeam, selfMotivation, communicationSkills, ownEnergyLvl, intAptitude} = req.body  
-
-  Applicant.create({
-    fullName, email, projectRepo, projectUrl, bestpracticeOOP, modularDevelopment,
-    fulWorkUnderstanding, testing, databaseKnowledge, debugging, probSolvingSkills, javascript,
-    html, css, workingTeam, selfMotivation, communicationSkills, ownEnergyLvl, intAptitude
-  }).then(newApplicant => {
+  Applicant.create(req.body)
+  .then(newApplicant => {
     res.json(newApplicant)
   }).catch(err => {
     console.log(err)

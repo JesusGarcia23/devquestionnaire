@@ -32,6 +32,9 @@ const applicantScema = new Schema({
     ownEnergyLvl: Number,
     intAptitude: Number,
 
+},
+{
+    timestamps: true
 })
 
 module.exports = mongoose.model('Applicant', applicantScema)
