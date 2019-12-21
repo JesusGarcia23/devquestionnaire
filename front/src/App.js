@@ -30,6 +30,12 @@ class App extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+
+    let re = new RegExp('https://github.com/');
+    if(re.test(this.state.projectRepo) === false){
+      alert("Invalid project Repo url, please check again")
+      window.scrollTo(0, 0);
+    }else{
     axios.post(`${process.env.REACT_APP_LOCALHOST}/submitForm`, this.state)
     .then(responseFromBackEnd => {
       if(responseFromBackEnd.status === 200){
@@ -63,6 +69,8 @@ class App extends React.Component {
       }
 
     }).catch(err => console.log(err))
+  }
+
   }
 
   updateInput = (e) => {
